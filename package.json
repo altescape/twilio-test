@@ -5,10 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:examples": "npm-run-all build:examples:*",
     "build:quickstart": "browserify quickstart/src/index.js > quickstart/public/index.js",
     "clean": "npm-run-all clean:*",
-    "clean:examples": "npm-run-all clean:examples:*",
     "clean:quickstart": "rimraf quickstart/public/index.js",
     "start": "npm run clean && npm run build && node server"
   },
