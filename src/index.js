@@ -118,7 +118,27 @@ function roomJoined(room) {
     var previewContainer = document.getElementById('remote-media');
     attachTracks([track], previewContainer);
 
-
+    setTimeout(function() {
+      var remoteVideoWidth = $('#remote-media video').width();
+      var screenWidth = $(window).width();
+      console.log(`widths: remoteVideoWidth: ${remoteVideoWidth}, screenWidth: ${screenWidth}`);
+      if (remoteVideoWidth > screenWidth) {
+        var moveMediaLeft =  (remoteVideoWidth - screenWidth) / 2;
+        console.log(`width sum: moveMediaLeft: ${moveMediaLeft}`);
+        $('#remote-media video').css({ left: -moveMediaLeft, position: 'relative', display: 'block' });
+      } else {
+        var remoteVideoHeight = $('#remote-media video').height();
+        var screenHeight = $(window).height();
+        var moveMediaUp =  (remoteVideoHeight - screenHeight) / 2;
+        $('#remote-media video').css({
+          width: screenWidth,
+          height: 'auto',
+          position: 'relative',
+          top: -moveMediaUp,
+          display: 'block'
+        });
+      }
+    }, 200);
   });
 
   // When a Participant's Track is unsubscribed from, detach it from the DOM.
@@ -161,7 +181,7 @@ function roomJoined(room) {
 // Activity log.
 function log(message) {
   var logDiv = document.getElementById('log');
-  logDiv.innerHTML += '<p>&gt;&nbsp;' + message + '</p>';
+  logDiv.innerHTML += '<li>' + message + '</li>';
   logDiv.scrollTop = logDiv.scrollHeight;
 }
 

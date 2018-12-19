@@ -78,6 +78,7 @@ body.connected {
     video {
       height: 100vh;
       max-width: initial;
+      display: none;
     }
   }
 
@@ -101,6 +102,10 @@ body.connected {
   z-index: 2;
   background: #d6d6d6;
   position: relative;
+}
+
+#log {
+  font-size: 0.7rem;
 }
 
 .footer {
