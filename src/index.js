@@ -117,6 +117,8 @@ function roomJoined(room) {
     log("Subscribed to " + participant.identity + "'s track: " + track.kind);
     var previewContainer = document.getElementById('remote-media');
     attachTracks([track], previewContainer);
+
+
   });
 
   // When a Participant's Track is unsubscribed from, detach it from the DOM.
