@@ -1,18 +1,24 @@
 {
-  "name": "video-quickstart-js",
+  "name": "twilio-test",
   "version": "1.0.0-dev",
-  "description": "Twilio Video SDK Quick Start for JavaScript",
+  "description": "Twilio Video SDK JavaScript Test",
   "main": "index.js",
   "scripts": {
-    "build": "npm-run-all build:*",
-    "build:quickstart": "browserify quickstart/src/index.js > quickstart/public/index.js",
+    "build-task:scss-compile": "node-sass-chokidar --source-map true src/scss/ -o public/css",
+    "build-task:autoprefixer": "postcss public/css/*.css --use autoprefixer -d public/css",
+    "watch:js": "chokidar 'src/**/*.js' -c 'npm run build'",
+    "watch:styles": "chokidar 'src/scss/**/*.scss' -c 'npm run build:scss'",
+    "build": "npm-run-all -p build:*",
+    "build:js": "browserify src/index.js > public/index.js",
+    "build:scss": "npm-run-all -p build-task:*",
+    "watch": "npm-run-all -p watch:*",
     "clean": "npm-run-all clean:*",
-    "clean:quickstart": "rimraf quickstart/public/index.js",
+    "clean:js": "rimraf public/index.js",
     "start": "npm run clean && npm run build && node server"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twilio/video-quickstart-js.git"
+    "url": "git+https://github.com/altescape/twilio-test.git"
   },
   "keywords": [
     "twilio",
@@ -23,24 +29,28 @@
     "time",
     "diggity"
   ],
-  "author": "Twilio",
+  "author": "Altescape",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/twilio/video-quickstart-js/issues"
+    "url": "https://github.com/altescape/twilio-test/issues"
   },
-  "homepage": "https://github.com/twilio/video-quickstart-js#readme",
+  "homepage": "https://github.com/altescape/twilio-test#readme",
   "dependencies": {
+    "autoprefixer": "^9.4.3",
+    "browserify": "^14.3.0",
+    "bulma": "^0.7.2",
+    "chokidar-cli": "^1.2.1",
+    "copyfiles": "^1.2.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
-    "npm-run-all": "^4.0.2",
+    "node-sass-chokidar": "^1.3.4",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^6.0.1",
     "prismjs": "^1.6.0",
+    "rimraf": "^2.6.1",
     "stackblur-canvas": "^1.4.0",
     "twilio": "^3.19.1",
-    "twilio-video": "^2.0.0-beta4",
-    "browserify": "^14.3.0",
-    "copyfiles": "^1.2.0",
-    "rimraf": "^2.6.1"
+    "twilio-video": "^2.0.0-beta4"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

@@ -42,7 +42,6 @@ window.addEventListener('beforeunload', leaveRoomIfJoined);
 // Obtain a token from the server in order to connect to the Room.
 $.getJSON('/token', function(data) {
   identity = data.identity;
-  document.getElementById('room-controls').style.display = 'block';
 
   // Bind button to join Room.
   document.getElementById('button-join').onclick = function() {
@@ -90,8 +89,10 @@ function roomJoined(room) {
   window.room = activeRoom = room;
 
   log("Joined as '" + identity + "'");
-  document.getElementById('button-join').style.display = 'none';
-  document.getElementById('button-leave').style.display = 'inline';
+
+  $('body').addClass('connected');
+
+  console.log('room', room);
 
   // Attach LocalParticipant's Tracks, if not already attached.
   var previewContainer = document.getElementById('local-media');
@@ -143,28 +144,17 @@ function roomJoined(room) {
     detachParticipantTracks(room.localParticipant);
     room.participants.forEach(detachParticipantTracks);
     activeRoom = null;
-    document.getElementById('button-join').style.display = 'inline';
-    document.getElementById('button-leave').style.display = 'none';
+    $('body').removeClass('connected');
+  });
+
+  room.localParticipant.on('trackPublicationFailed', (error, localTrack) => {
+    console.warn('Failed to publish LocalTrack "%s": %s', localTrack.name, error.message);
+  });
+
+  room.on('trackSubscriptionFailed', (error, remoteTrackPublication, remoteParticipant) => {
+    console.warn('Failed to subscribe to RemoteTrack "%s" from RemoteParticipant "%s": %s"', remoteTrackPublication.trackName, remoteParticipant.identity, error.message);
   });
 }
-
-// Preview LocalParticipant's Tracks.
-document.getElementById('button-preview').onclick = function() {
-  var localTracksPromise = previewTracks
-    ? Promise.resolve(previewTracks)
-    : Video.createLocalTracks();
-
-  localTracksPromise.then(function(tracks) {
-    window.previewTracks = previewTracks = tracks;
-    var previewContainer = document.getElementById('local-media');
-    if (!previewContainer.querySelector('video')) {
-      attachTracks(tracks, previewContainer);
-    }
-  }, function(error) {
-    console.error('Unable to access local media', error);
-    log('Unable to access Camera and Microphone');
-  });
-};
 
 // Activity log.
 function log(message) {
@@ -179,3 +169,4 @@ function leaveRoomIfJoined() {
     activeRoom.disconnect();
   }
 }
+

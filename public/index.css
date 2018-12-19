@@ -11,9 +11,9 @@ body {
 }
 
 div#remote-media {
-  height: 95vh;
+  height: 50vh;
   width: 100%;
-  background-color: #fC0;
+  background-color: #fF0;
   text-align: center;
   margin: auto;
 }

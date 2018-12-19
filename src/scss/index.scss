@@ -1,0 +1,99 @@
+@import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
+
+body {
+  background-color: #AAA;
+}
+
+#button-leave,
+.video-session,
+.message {
+  display: none;
+}
+
+body.connected {
+  #button-join,
+  .empty-video {
+    display: none;
+  }
+
+  #button-leave,
+  .video-session {
+    display: flex;
+  }
+
+  .message {
+    display: block;
+  }
+}
+
+.empty-video {
+  background-color: #cececc;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #AAA;
+  font-size: 2rem;
+}
+
+.navbar {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  border-bottom: 2px solid #5d5d5d;
+}
+
+.top {
+  padding: 0.3rem;
+  display: flex;
+  height: 3.25rem;
+  align-items: center;
+
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.videos {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: whitesmoke;
+
+  .remote-video {
+    text-align: center;
+    margin: auto;
+
+    video {
+      height: 100vh;
+      max-width: initial;
+    }
+  }
+
+  .local-video-container {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 33%;
+
+    video {
+      width: 100%;
+      border: 1px solid #999;
+      box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+    }
+  }
+}
+
+.message {
+  margin: 1rem;
+}
+
+.footer {
+  background-color: #eaeaea;
+  padding: 2rem 1rem 2rem;
+}

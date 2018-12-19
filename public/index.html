@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twilio Video - JavaScript Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="css/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<div class="container is-fluid">
+  <nav class="navbar is-fixed-top">
+    <div id="room-controls" class="top columns is-gapless has-background-grey">
+      <input id="room-name" class="input" type="tel" placeholder="Enter a room number" />
+      <button id="button-join" class="button is-success">
+        Join room
+      </button>
+      <button id="button-leave" class="button is-danger">
+        Leave room
+      </button>
+    </div>
+  </nav>
+
+  <div class="videos">
+    <div class="empty-video">
+        <span class="icon">
+            <i class="fas fa-3x fa-video-slash"></i>
+        </span>
+    </div>
+    <div class="video-session">
+      <div id="remote-media" class="remote-video"></div>
+      <div class="local-video-container">
+        <div id="local-media" class="local-video"></div>
+      </div>
+    </div>
+  </div>
+
+  <article class="message">
+    <div class="message-header">
+      <p>Log</p>
+    </div>
+    <div class="message-body">
+      <div id="log"></div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Created by <strong>1minus1</strong>.
+      </p>
+    </div>
+  </footer>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
