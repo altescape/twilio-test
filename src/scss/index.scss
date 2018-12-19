@@ -11,8 +11,16 @@ body {
 
 #button-leave,
 .video-session,
-.message-row {
+.message-row,
+.status-msg {
   display: none;
+}
+
+.status-msg {
+  position: absolute;
+  top: 4rem;
+  left: 1rem;
+  font-size: 0.8rem;
 }
 
 body.connected {
@@ -28,6 +36,11 @@ body.connected {
 
   .message-row {
     display: block;
+  }
+
+  .status-msg {
+    display: block;
+    color: #FFF;
   }
 }
 

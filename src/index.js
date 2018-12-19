@@ -118,27 +118,9 @@ function roomJoined(room) {
     var previewContainer = document.getElementById('remote-media');
     attachTracks([track], previewContainer);
 
-    setTimeout(function() {
-      var remoteVideoWidth = $('#remote-media video').width();
-      var screenWidth = $(window).width();
-      console.log(`widths: remoteVideoWidth: ${remoteVideoWidth}, screenWidth: ${screenWidth}`);
-      if (remoteVideoWidth > screenWidth) {
-        var moveMediaLeft =  (remoteVideoWidth - screenWidth) / 2;
-        console.log(`width sum: moveMediaLeft: ${moveMediaLeft}`);
-        $('#remote-media video').css({ left: -moveMediaLeft, position: 'relative', display: 'block' });
-      } else {
-        var remoteVideoHeight = $('#remote-media video').height();
-        var screenHeight = $(window).height();
-        var moveMediaUp =  (remoteVideoHeight - screenHeight) / 2;
-        $('#remote-media video').css({
-          width: screenWidth,
-          height: 'auto',
-          position: 'relative',
-          top: -moveMediaUp,
-          display: 'block'
-        });
-      }
-    }, 200);
+    setVideoSize();
+
+    $(window).on('resize', setVideoSize)
   });
 
   // When a Participant's Track is unsubscribed from, detach it from the DOM.
@@ -167,6 +149,7 @@ function roomJoined(room) {
     room.participants.forEach(detachParticipantTracks);
     activeRoom = null;
     $('body').removeClass('connected');
+    $(window).off('resize')
   });
 
   room.localParticipant.on('trackPublicationFailed', (error, localTrack) => {
@@ -190,5 +173,37 @@ function leaveRoomIfJoined() {
   if (activeRoom) {
     activeRoom.disconnect();
   }
+}
+
+function setVideoSize() {
+  var video = $('#remote-media video');
+  video.removeAttr('style');
+
+  setTimeout(function() {
+    console.log('setVideoSize called');
+    var remoteVideoWidth = $('#remote-media video').width();
+    var screenWidth = $(window).width();
+    // console.log(`widths: remoteVideoWidth: ${remoteVideoWidth}, screenWidth: ${screenWidth}`);
+    if (remoteVideoWidth > screenWidth) {
+      var moveMediaLeft =  (remoteVideoWidth - screenWidth) / 2;
+      // console.log(`width sum: moveMediaLeft: ${moveMediaLeft}`);
+      video.css({
+        left: -moveMediaLeft,
+        position: 'relative',
+        display: 'block'
+      });
+    } else {
+      var remoteVideoHeight = $('#remote-media video').height();
+      var screenHeight = $(window).height();
+      var moveMediaUp =  (remoteVideoHeight - screenHeight) / 2;
+      video.css({
+        width: screenWidth,
+        height: 'auto',
+        position: 'relative',
+        top: -moveMediaUp,
+        display: 'block'
+      });
+    }
+  }, 200);
 }
 
