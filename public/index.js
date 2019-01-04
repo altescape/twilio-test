@@ -36237,6 +36237,7 @@ function roomJoined(room) {
   // When a Participant's Track is subscribed to, attach it to the DOM.
   room.on('trackSubscribed', function(track, publication, participant) {
     log("Subscribed to " + participant.identity + "'s track: " + track.kind);
+    console.log('track dimensions', track.dimensions)
     var previewContainer = document.getElementById('remote-media');
     attachTracks([track], previewContainer);
 
@@ -36285,6 +36286,7 @@ function roomJoined(room) {
 
 // Activity log.
 function log(message) {
+  console.log(message);
   var logDiv = document.getElementById('log');
   logDiv.innerHTML += '<li>' + message + '</li>';
   logDiv.scrollTop = logDiv.scrollHeight;
@@ -36302,7 +36304,6 @@ function setVideoSize() {
   video.removeAttr('style');
 
   setTimeout(function() {
-    console.log('setVideoSize called');
     var remoteVideoWidth = $('#remote-media video').width();
     var screenWidth = $(window).width();
     // console.log(`widths: remoteVideoWidth: ${remoteVideoWidth}, screenWidth: ${screenWidth}`);
